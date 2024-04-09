@@ -8,17 +8,17 @@ test.describe("listas.html", () => {
     await page.goto(`file://${process.cwd()}/listas.html`);
     await expect(page.locator("meta[charset]")).toHaveAttribute(
       "charset",
-      "UTF-8"
+      "UTF-8",
     );
   });
 
-  test("deve ter um meta viewport com atributo content com \"width=device-width, initial-scale=1.0\" no head", async ({
+  test('deve ter um meta viewport com atributo content com "width=device-width, initial-scale=1.0" no head', async ({
     page,
   }) => {
     await page.goto(`file://${process.cwd()}/listas.html`);
     await expect(page.locator('meta[name="viewport"]')).toHaveAttribute(
       "content",
-      "width=device-width, initial-scale=1.0"
+      "width=device-width, initial-scale=1.0",
     );
   });
 
@@ -27,44 +27,52 @@ test.describe("listas.html", () => {
     await expect(page.locator("html")).toHaveAttribute("lang", "pt");
   });
 
-  test("deve ter um título no head com o número da atividade, a palavra Listas e o nome do aluno", async ({ page }) => {
+  test("deve ter um título no head com o número da atividade, a palavra Listas e o nome do aluno", async ({
+    page,
+  }) => {
     await page.goto(`file://${process.cwd()}/listas.html`);
     await expect(page).toHaveTitle(/DCC202 - Atividade 4 - Listas: (.*)/);
   });
 
-  
   test("deve ter um main com algum conteúdo", async ({ page }) => {
     await page.goto(`file://${process.cwd()}/listas.html`);
     await expect(page.locator("main")).toBeVisible();
   });
-  
-  test("deve ter um título no main com o mesmo conteúdo do título do documento", async ({ page }) => {
+
+  test("deve ter um título no main com o mesmo conteúdo do título do documento", async ({
+    page,
+  }) => {
     await page.goto(`file://${process.cwd()}/listas.html`);
-    await expect(page.locator("main > h1")).toHaveText(/DCC202 - Atividade 4 - Listas: (.*)/);
+    await expect(page.locator("main > h1")).toHaveText(
+      /DCC202 - Atividade 4 - Listas: (.*)/,
+    );
   });
 
-  test('o main deve ter um parágrafo logo após o título', async ({ page }) => {
+  test("o main deve ter um parágrafo logo após o título", async ({ page }) => {
     await page.goto(`file://${process.cwd()}/listas.html`);
     await expect(page.locator("main > h1+p")).toBeVisible();
   });
 
-  test('O parágrafo deve ter dois links', async ({ page }) => {
+  test("O parágrafo deve ter dois links", async ({ page }) => {
     await page.goto(`file://${process.cwd()}/listas.html`);
     await expect(page.locator("main > h1+p > a")).toHaveCount(2);
   });
 
-  test('O primeiro link deve levar para uma página sobre tabelas', async ({ page }) => {
+  test("O primeiro link deve levar para uma página sobre tabelas", async ({
+    page,
+  }) => {
     await page.goto(`file://${process.cwd()}/listas.html`);
     const link = page.locator("main > h1+p > a:first-child");
     await expect(link).toHaveAttribute("href", "tabelas.html");
     await expect(link).toHaveText("tabelas");
   });
 
-  test('O segundo link deve levar para a página principal', async ({ page }) => {
+  test("O segundo link deve levar para a página principal", async ({
+    page,
+  }) => {
     await page.goto(`file://${process.cwd()}/listas.html`);
     const link = page.locator("main > h1+p > a:nth-child(2)");
     await expect(link).toHaveAttribute("href", "index.html");
     await expect(link).toHaveText("página principal");
   });
-
 });
